@@ -25,7 +25,12 @@ export default function SettingsPage() {
   async function saveProfile() {
     const { data: userData } = await supabase.auth.getUser();
     if (!userData.user) return;
-    const { error } = await supabase.from("profiles").upsert({ user_id: userData.user.id, display_name: displayName });
+    const { error } = await supabase
+      .from("profiles")
+      .upsert(
+        { user_id: userData.user.id, display_name: displayName },
+        { onConflict: "user_id" },
+      );
     if (error) return toast.error(error.message);
     toast.success("Display name saved.");
   }
