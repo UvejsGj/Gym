@@ -36,11 +36,11 @@ export default async function DashboardPage() {
 
       <Card>
         <CardHeader><CardTitle>Quick Actions</CardTitle></CardHeader>
-        <CardContent className="flex flex-wrap gap-2">
-          <Link href="/workouts" className={cn(buttonVariants({ variant: "default" }))}>Start Workout</Link>
-          <Link href="/body-weight" className={cn(buttonVariants({ variant: "outline" }))}>Add Body Weight</Link>
-          <Link href="/history" className={cn(buttonVariants({ variant: "outline" }))}>View History</Link>
-          <Link href="/exercises" className={cn(buttonVariants({ variant: "outline" }))}>Manage Exercises</Link>
+        <CardContent className="grid gap-2 sm:grid-cols-2">
+          <Link href="/workouts" className={cn(buttonVariants({ variant: "default" }), "w-full")}>Start Workout</Link>
+          <Link href="/body-weight" className={cn(buttonVariants({ variant: "outline" }), "w-full")}>Add Body Weight</Link>
+          <Link href="/history" className={cn(buttonVariants({ variant: "outline" }), "w-full")}>View History</Link>
+          <Link href="/exercises" className={cn(buttonVariants({ variant: "outline" }), "w-full")}>Manage Exercises</Link>
         </CardContent>
       </Card>
 

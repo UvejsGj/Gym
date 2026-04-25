@@ -33,12 +33,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             ))}
           </nav>
         </aside>
-        <main className="p-4 pb-20 md:p-6">{children}</main>
+        <main className="p-4 pb-24 md:p-6">{children}</main>
       </div>
-      <nav className="fixed inset-x-0 bottom-0 border-t bg-background p-2 md:hidden">
-        <div className="grid grid-cols-4 gap-1">
-          {nav.slice(0, 8).map((item) => (
-            <Link key={item.href} href={item.href} className={cn("flex flex-col items-center rounded-md py-2 text-[11px] hover:bg-muted", pathname.startsWith(item.href) && "bg-muted")}>
+      <nav className="fixed inset-x-0 bottom-0 border-t bg-background/95 p-2 backdrop-blur md:hidden">
+        <div className="no-scrollbar flex gap-1 overflow-x-auto">
+          {nav.map((item) => (
+            <Link key={item.href} href={item.href} className={cn("flex min-w-[86px] flex-col items-center rounded-md py-2 text-[11px] hover:bg-muted", pathname.startsWith(item.href) && "bg-muted")}>
               <item.icon />
               {item.label}
             </Link>

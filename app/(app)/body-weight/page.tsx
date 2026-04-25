@@ -21,6 +21,7 @@ export default function BodyWeightPage() {
   const [entries, setEntries] = useState<BodyWeightEntry[]>([]);
   const [form, setForm] = useState(initial);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   async function load() {
     const { data, error } = await supabase.from("body_weight_entries").select("*").order("date", { ascending: true });
@@ -28,7 +29,10 @@ export default function BodyWeightPage() {
     setEntries((data ?? []) as BodyWeightEntry[]);
   }
 
-  useEffect(() => { void load(); }, []);
+  useEffect(() => {
+    setMounted(true);
+    void load();
+  }, []);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -73,16 +77,18 @@ export default function BodyWeightPage() {
       <div className="flex flex-col gap-4">
         <Card>
           <CardHeader><CardTitle>Weight Over Time</CardTitle></CardHeader>
-          <CardContent className="h-[280px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={entries}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip />
-                <Line type="monotone" dataKey="weight" stroke="var(--color-chart-1)" />
-              </LineChart>
-            </ResponsiveContainer>
+          <CardContent className="h-[250px] md:h-[280px]">
+            {mounted ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={entries}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" tick={{ fontSize: 12 }} />
+                  <YAxis tick={{ fontSize: 12 }} />
+                  <Tooltip />
+                  <Line type="monotone" dataKey="weight" stroke="var(--color-chart-1)" />
+                </LineChart>
+              </ResponsiveContainer>
+            ) : null}
           </CardContent>
         </Card>
         <Card>
